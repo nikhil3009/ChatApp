@@ -1,0 +1,34 @@
+
+server:
+  port: 8084
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/PAYMENTS
+    username: ecommuser
+    password: Nikhil@965@12
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect # Updated the dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  application:
+    name: PAYMENT-SERVICE
+
+
+eureka:
+  instance:
+    # Prefer IP address over hostname when registering with Eureka
+    prefer-ip-address: true
+  client:
+    # Enable the application to register with Eureka
+    register-with-eureka: true
+    # Enable the application to fetch the registry from Eureka
+    fetch-registry: true
+    service-url:
+      # Define the Eureka server URL where the client should register and fetch the registry
+      defaultZone: http://localhost:8761/eureka
+
