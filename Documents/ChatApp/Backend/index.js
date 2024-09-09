@@ -1,10 +1,8 @@
 /** @format */
-
 import express from 'express';
 import dotenv from 'dotenv';
 import http from 'http';
 import { Server } from 'socket.io';
-
 dotenv.config();
 const PORT = process.env.PORT || 3030;
 const app = express();
