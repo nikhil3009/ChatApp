@@ -14,9 +14,15 @@ const io = new Server(server, {
 	},
 });
 io.on('connection', (socket) => {
-	console.log('client connected');
+	console.log('client is  connected');
+	const username = socket.handshake.query.username;
+	console.log('one-one', username);
 	socket.on('chat msg', (msg) => {
-		console.log('received msg' + msg);
+		//socket.broadcast.emit('chat msg', msg);
+		console.log(msg.sender);
+		console.log(msg.receiver);
+		console.log(msg.textMsg);
+		console.log('received msg:' + msg);
 	});
 });
 app.get('/', (req, res) => {
