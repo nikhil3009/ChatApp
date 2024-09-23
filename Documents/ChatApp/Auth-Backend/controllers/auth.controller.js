@@ -23,4 +23,26 @@ const signup = async (req, res) => {
 		res.status(500).json({ message: 'user registration failed' });
 	}
 };
-export const signin = as
+export const signin = async (req, res) => {
+	try {
+		const { username, password } = req.body;
+
+		const userFound = await User.findOne({ username });
+		if (!userFound) {
+			res.status(401).json({ message: 'Authentication failed' });
+		} else {
+			const passwordMatch = await bcrypt.compare(password, userFound?.password);
+			if (!passwordMatch) {
+				res.status(401).json({ message: 'Authentication failed' });
+			}
+			generateJWTandSetCookie(userFound._id, res);
+			res
+				.status(201)
+				.json({ _id: userFound._id, username: userFound.username });
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: 'Login failed' });
+	}
+};
+export default signup;

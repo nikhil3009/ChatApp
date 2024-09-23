@@ -14,4 +14,22 @@ app.use(cookieParser());
 app.use(
 	cors({
 		credentials: true,
-		origin: 'http://localhos
+		origin: [
+			'http://localhost:3000',
+			'http://localhost:3001',
+			'http://localhost:3002',
+		],
+	})
+);
+
+app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+
+app.get('/', (req, res) => {
+	res.send('Hello, World! from auth');
+});
+
+app.listen(PORT, () => {
+	connectToMongoose();
+	console.log(`Server is running on port ${PORT}`);
+});
